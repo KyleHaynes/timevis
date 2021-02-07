@@ -1,38 +1,62 @@
-library(timevis)
+setwd("C:\\Users\\kyleh\\OneDrive\\Desktop\\timevis\\inst\\example")
 
-source("sampleData.R")
+# install.packages("shinydisconnect")
+
+
+library(timevis)
+library(shinydisconnect)
+library(data.table)
+
+# source("sampleData.R")
 source("utils.R")
 
+# source("ui.R")
+    #   
+
+dt = structure(list(id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"), content = c("Rec", 
+"Sick", "Rec", "RDO", "RDO", "RDO", "RDO", "RDO", "RDO"), start = c("2016-01-10", 
+"2016-01-11", "2016-01-20", "2016-02-14", "2016-03-14", "2016-03-16", 
+"2016-03-14", "2016-03-01", "2016-03-14"), end = c(NA, "2016-03-04", 
+"2016-02-04", NA, "2016-03-16", "2016-03-17", "2016-04-04", "2016-03-04", 
+"2016-03-14"), group = c("kzhayn", "szlit", "kzhayn", "szlit", 
+"personx", "persony", "personz", "personc", "persond")), class = "data.frame", row.names = c(NA, 
+-9L))
+
+dt$V1 = NULL
+
+dt$group = c(1,2,1,2,3,4,5,6,7)
+dt$subgroup = c(1,3,3,3,1,1,1,2,2)
+
+dt_groups <- data.frame(id = 1:7, content = c("zz", "qq", "ww", "sdf", "ee", "sd", "x"))
+
+# dt_groups <- data.table(id = c("kzhayn", "szlit"), content = c("Kyle Haynes", "Simon Diddle"))
+
+
+#   runApp()
+
+
+
+#   output$timelineGroups <- renderTimevis({
+#     timevis(data = timevisData, groups = timevisDataGroups, options = list(editable = TRUE))
+#   })
+
+
+
+
 function(input, output, session) {
-  output$timelineBasic <- renderTimevis({
-    timevis(dataBasic)
-  })
 
-  output$timelineWC <- renderTimevis({
-    timevis(dataWC)
-  })
 
-  output$timelineGroups <- renderTimevis({
-    timevis(data = timevisData, groups = timevisDataGroups, options = list(editable = TRUE))
-  })
+#   output$timelineBasic <- renderTimevis({
+#     timevis(data = dt, groups = dt$group, options = list(editable = TRUE))
+#   })
 
-  output$timelineCustom <- renderTimevis({
-    config <- list(
-      editable = TRUE,
-      align = "center",
-      orientation = "top",
-      snap = NULL,
-      margin = list(item = 30, axis = 50)
-    )
-    timevis(dataBasic, zoomFactor = 1, options = config)
-  })
 
   output$timelineInteractive <- renderTimevis({
     config <- list(
       editable = TRUE,
       multiselect = TRUE
     )
-    timevis(dataBasic, options = config)
+    timevis(data = dt, groups = dt_groups, options = config)
   })
 
   output$visible <- renderText(

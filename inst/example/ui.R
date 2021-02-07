@@ -4,27 +4,27 @@ source("ui-helpers.R")
 
 fluidPage(
   shinydisconnect::disconnectMessage2(),
-  title = "timevis - An R package for creating timeline visualizations",
+  title = "QGSO Leave App",
   tags$head(
     tags$link(href = "style.css", rel = "stylesheet"),
 
     # Favicon
-    tags$link(rel = "shortcut icon", type="image/x-icon", href="https://daattali.com/shiny/img/favicon.ico"),
+    tags$link(rel = "shortcut icon", type="image/x-icon", href="https://daattali.com/shiny/img/favicon.ico")
 
     # Facebook OpenGraph tags
-    tags$meta(property = "og:title", content = share$title),
-    tags$meta(property = "og:type", content = "website"),
-    tags$meta(property = "og:url", content = share$url),
-    tags$meta(property = "og:image", content = share$image),
-    tags$meta(property = "og:description", content = share$description),
+    # tags$meta(property = "og:title", content = share$title),
+    # tags$meta(property = "og:type", content = "website"),
+    # tags$meta(property = "og:url", content = share$url),
+    # tags$meta(property = "og:image", content = share$image),
+    # tags$meta(property = "og:description", content = share$description),
 
-    # Twitter summary cards
-    tags$meta(name = "twitter:card", content = "summary_large_image"),
-    tags$meta(name = "twitter:site", content = paste0("@", share$twitter_user)),
-    tags$meta(name = "twitter:creator", content = paste0("@", share$twitter_user)),
-    tags$meta(name = "twitter:title", content = share$title),
-    tags$meta(name = "twitter:description", content = share$description),
-    tags$meta(name = "twitter:image", content = share$image)
+    # # Twitter summary cards
+    # tags$meta(name = "twitter:card", content = "summary_large_image"),
+    # tags$meta(name = "twitter:site", content = paste0("@", share$twitter_user)),
+    # tags$meta(name = "twitter:creator", content = paste0("@", share$twitter_user)),
+    # tags$meta(name = "twitter:title", content = share$title),
+    # tags$meta(name = "twitter:description", content = share$description),
+    # tags$meta(name = "twitter:image", content = share$image)
   ),
   tags$a(
     href="https://github.com/daattali/timevis",
@@ -33,65 +33,65 @@ fluidPage(
              alt="Fork me on GitHub")
   ),
   div(id = "header",
-    div(id = "title",
-      "timevis"
+    div(id = "title", "MAIN TITLE"
     ),
-    div(id = "subtitle",
-        "An R package for creating timeline visualizations"),
-    div(id = "subsubtitle",
-        "By",
-        tags$a(href = "https://deanattali.com/", "Dean Attali"),
-        HTML("&bull;"),
-        "Available",
-        tags$a(href = "https://github.com/daattali/timevis", "on GitHub"),
-        HTML("&bull;"),
-        tags$a(href = "https://github.com/sponsors/daattali", "Support my work"), "❤"
-    )
+    div(id = "subtitle", "An R package for creating timeline visualizations") #,
+    # div(id = "subsubtitle",
+    #     "By",
+    #     tags$a(href = "https://deanattali.com/", "Dean Attali"),
+    #     HTML("&bull;"),
+    #     "Available",
+    #     tags$a(href = "https://github.com/daattali/timevis", "on GitHub"),
+    #     HTML("&bull;"),
+    #     tags$a(href = "https://github.com/sponsors/daattali", "Support my work"), "❤"
+    # )
   ),
   tabsetPanel(
     id = "mainnav",
+    # tabPanel(
+    #   div(icon("calendar"), "Basic timeline"),
+    #   timevisOutput("timelineBasic"),
+    #   div(
+    #     id = "samplecode",
+    #     fluidRow(
+    #       column(
+    #         6,
+    #         div(class = "codeformat",
+    #           "In R console or R markdown documents"),
+    #         tags$pre(codeConsole)
+    #       ),
+    #       column(
+    #         6,
+    #         div(class = "codeformat",
+    #             "In Shiny apps"),
+    #         tags$pre(codeShiny)
+    #       )
+    #     )
+    #   )
+    # ),
+
+    # tabPanel(
+    #   div(icon("cog"), "Custom style"),
+    #   timevisOutput("timelineCustom")
+    # ),
+
+    # tabPanel(
+    #   div(icon("trophy"), "World Cup 2014"),
+    #   timevisOutput("timelineWC")
+    # ),
+
+    # Tabs across the top
     tabPanel(
-      div(icon("calendar"), "Basic timeline"),
-      timevisOutput("timelineBasic"),
-      div(
-        id = "samplecode",
-        fluidRow(
-          column(
-            6,
-            div(class = "codeformat",
-              "In R console or R markdown documents"),
-            tags$pre(codeConsole)
-          ),
-          column(
-            6,
-            div(class = "codeformat",
-                "In Shiny apps"),
-            tags$pre(codeShiny)
-          )
-        )
-      )
+      div(icon("users"), "Add Time"),
+      tableOutput("table")
     ),
 
     tabPanel(
-      div(icon("cog"), "Custom style"),
-      timevisOutput("timelineCustom")
-    ),
-
-    tabPanel(
-      div(icon("trophy"), "World Cup 2014"),
-      timevisOutput("timelineWC")
-    ),
-
-    tabPanel(
-      div(icon("users"), "Groups"),
-      timevisOutput("timelineGroups")
-    ),
-
-    tabPanel(
-      div(icon("sliders"), "Fully interactive"),
+     # Secodn tab
+      div(icon("sliders"), "View Time"),
       fluidRow(
         column(
-          8,
+          12,
           fluidRow(column(12,
             timevisOutput("timelineInteractive")
           )),
@@ -136,32 +136,33 @@ fluidPage(
               )
             )
           )
-        ),
-        column(4,
-           div(
-             id = "timelinedata",
-             class = "optionsSection",
-             tags$h4("Data:"),
-             tableOutput("table"),
-             hr(),
-             div(tags$strong("Visible window:"),
-                 textOutput("window", inline = TRUE)),
-             div(tags$strong("Selected items:"),
-                 textOutput("selected", inline = TRUE)),
-             div(tags$strong("Visible items:"),
-                 textOutput("visible", inline = TRUE)),
-           )
         )
+        # ,
+        # column(4,
+        #    div(
+        #      id = "timelinedata",
+        #      class = "optionsSection",
+        #      tags$h4("Data:"),
+        #      tableOutput("table"),
+        #      hr(),
+        #      div(tags$strong("Visible window:"),
+        #          textOutput("window", inline = TRUE)),
+        #      div(tags$strong("Selected items:"),
+        #          textOutput("selected", inline = TRUE)),
+        #      div(tags$strong("Visible items:"),
+        #          textOutput("visible", inline = TRUE)),
+        #    )
+        # )
       )
-    ),
-    tabPanel(
-      div(icon("question"), "Usage"),
-      div(id = "usage-tab", includeMarkdown("www/help.md"))
-    )
-  ),
-  div(class = "sourcecode",
-      "The exact code for all the timelines in this app is",
-      tags$a(href = "https://github.com/daattali/timevis/tree/master/inst/example",
-             "on GitHub")
-  )
+    ) #,
+    # tabPanel(
+    #   div(icon("question"), "Usage"),
+    #   div(id = "usage-tab", includeMarkdown("www/help.md"))
+    # )
+  ) #,
+#   div(class = "sourcecode",
+#       "The exact code for all the timelines in this app is",
+#       tags$a(href = "https://github.com/daattali/timevis/tree/master/inst/example",
+#              "on GitHub")
+#   )
 )
